@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../Chapter-01/Chapter-01.html" class="active"><strong aria-hidden="true">1.</strong> Installation</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 01</li><li class="chapter-item expanded "><a href="../Chapter-01/Chapter-01.html" class="active"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="../misc/contributors.html">Contributors</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -199,15 +199,15 @@ on the left side and click it!</li>
 <p>select <code>Install the new file and keep existing file</code> and select Use the current choice for all subsequent DLLs</p>
 <p>select <code>Modify local machine environment variables</code> and hit OK</p>
 <p>select <code>Don't Modify associations</code> and press OK</p>
-<p>now open cmd and run <code>wpp</code> if you see <code>Open Watcom C++ x86 16-bit Optimizing Compiler ...</code> then you installed it successfully</p>
+<p>now open cmd and run <code>wpp</code> and if you see <code>Open Watcom C++ x86 16-bit Optimizing Compiler ...</code> then you have installed it successfully!</p>
 <h3 id="linux"><a class="header" href="#linux">Linux</a></h3>
-<p>Download <code>open-watcom-2_0-c-linux-x64.exe</code> and run it.</p>
+<p>Download <code>open-watcom-2_0-c-linux-x64</code>.</p>
 <p>extract it and copy it to <code>/usr/bin/watcom</code></p>
 <p>and add these lines to the top of <code>~/.profile</code> and <code>~/.bashrc</code></p>
 <pre><code class="language-bash">export WATCOM=/usr/bin/watcom
 export PATH=$WATCOM/binl64:$WATCOM/binl:$PATH
 </code></pre>
-<p>restart the terminal and run <code>wpp</code> in terminal if you see <code>Open Watcom C++ x86 16-bit Optimizing Compiler ...</code> then you installed it successfully</p>
+<p>restart the terminal and run <code>wpp</code> in terminal and if you see <code>Open Watcom C++ x86 16-bit Optimizing Compiler ...</code> then you have installed it successfully!</p>
 <h2 id="dosbox"><a class="header" href="#dosbox">DOSBox</a></h2>
 <h3 id="windows-1"><a class="header" href="#windows-1">Windows</a></h3>
 <p>run this command in cmd</p>
@@ -218,7 +218,7 @@ export PATH=$WATCOM/binl64:$WATCOM/binl:$PATH
 <p>You'll see two lists we're going change the top one called <code>User Variables for $(YOUR_USER_NAME)</code></p>
 <p>find the variable called <code>path</code> and double click it.</p>
 <p>press the <code>new</code> button and type the installation location of DOSBox. (default is <code>C:\Program Files (x86)\DOSBox-0.74-3</code>)</p>
-<p>now open a new cmd and run <code>dosbox</code> if it starts DOSBox then you installed it successfully</p>
+<p>now open a new cmd and run <code>dosbox</code> and if it starts DOSBox then you have installed it successfully!</p>
 <h3 id="linux-1"><a class="header" href="#linux-1">Linux</a></h3>
 <p>run this command and that's it!</p>
 <pre><code class="language-bash">sudo apt-get install dosbox
@@ -229,6 +229,9 @@ export PATH=$WATCOM/binl64:$WATCOM/binl:$PATH
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
 
+                            <a rel="next" href="../misc/contributors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -237,6 +240,9 @@ export PATH=$WATCOM/binl64:$WATCOM/binl:$PATH
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
 
+                    <a rel="next" href="../misc/contributors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
