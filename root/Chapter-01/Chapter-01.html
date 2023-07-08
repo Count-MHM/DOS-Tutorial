@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Installation - Dos Tutorial Part 01</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../Chapter-01/Chapter-01.html" class="active"><strong aria-hidden="true">1.</strong> Installation</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Dos Tutorial Part 01</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Count_MHM
+---- 2023/07/08
+---- 
+---->
+<h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<p>We are going to use <code>Open Watcom V2.0</code> as our compiler, <code>Visual Studio Code</code> as our code editor, and <code>DosBox</code> as our Dos emulator.</p>
+<h2 id="visual-studio-code"><a class="header" href="#visual-studio-code">Visual Studio Code</a></h2>
+<p>Lets start by installing the easier one first.</p>
+<p>It's as simple as downloading it from <a href="https://code.visualstudio.com/">visual studio code's Website</a> and installing it.</p>
+<p>We also need to install few <code>Extensions</code> to make life easier for us.</p>
+<p>first lets open the <code>Extensions</code> menu it. there are few ways to do that:</p>
+<ol>
+<li>look for this icon
+<img src="Chapter-01/assets/VSCode-Extentions-Icon.png" alt="drawing" height="25"/>
+on the left side and click it!</li>
+<li>open <code>Command Palette</code> (with <code>Ctrl+Shift+P</code> or <code>F1</code>) and type <code>View: Show Extensions</code></li>
+<li>use the default keyboard shortcut : <code>Ctrl+Shift+X</code></li>
+</ol>
+<p>from there search and install these extensions:</p>
+<ol>
+<li><code>C/C++</code></li>
+<li><code>Makefile Tools</code></li>
+</ol>
+<h2 id="open-watcom-v20"><a class="header" href="#open-watcom-v20">Open Watcom V2.0</a></h2>
+<p>Open Watcom V2.0 is only available for Windows and Linux (dos, win16, and os2 are also supported).</p>
+<p>I'm only going cover Windows and linux, macos users may have to use <code>Wine</code> but I can't test it because i don't have any machine running macos.</p>
+<p>First we have to download watcom so go to <a href="https://github.com/open-watcom/open-watcom-v2">Github</a> go to <code>Releases</code> then select the latest build (<a href="https://github.com/open-watcom/open-watcom-v2/releases/tag/2023-07-02-Build"><code>2023-07-02-Build</code></a> at the time of writing)</p>
+<h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
+<p>Download <code>open-watcom-2_0-c-win-x64.exe</code> and run it.</p>
+<p>Read the EULA and Agree to it!</p>
+<p>Select a folder to install Watcom (I use <code>C:\Dev\Programs\WATCOM</code> but you can use any folder)</p>
+<p>Select <code>Full installation</code> and hit next</p>
+<p>press next</p>
+<p>if you have installed it before you will be prompted about what to do about some DLLs</p>
+<p>select <code>Install the new file and keep existing file</code> and select Use the current choice for all subsequent DLLs</p>
+<p>select <code>Modify local machine environment variables</code> and hit OK</p>
+<p>select <code>Don't Modify associations</code> and press OK</p>
+<p>now open cmd and run <code>wpp</code> if you see <code>Open Watcom C++ x86 16-bit Optimizing Compiler ...</code> then you installed it successfully</p>
+<h3 id="linux"><a class="header" href="#linux">Linux</a></h3>
+<p>Download <code>open-watcom-2_0-c-linux-x64.exe</code> and run it.</p>
+<p>extract it and copy it to <code>/usr/bin/watcom</code></p>
+<p>and add these lines to the top of <code>~/.profile</code> and <code>~/.bashrc</code></p>
+<pre><code class="language-bash">export WATCOM=/usr/bin/watcom
+export PATH=$WATCOM/binl64:$WATCOM/binl:$PATH
+</code></pre>
+<p>restart the terminal and run <code>wpp</code> in terminal if you see <code>Open Watcom C++ x86 16-bit Optimizing Compiler ...</code> then you installed it successfully</p>
+<h2 id="dosbox"><a class="header" href="#dosbox">DOSBox</a></h2>
+<h3 id="windows-1"><a class="header" href="#windows-1">Windows</a></h3>
+<p>run this command in cmd</p>
+<pre><code class="language-bash">winget install dosbox
+</code></pre>
+<p>after installing it open windows search and search for <code>Edit the system environment variables</code> and open it.</p>
+<p>on the button of the opened window there will be a button called <code>Environment Variables...</code> press it!</p>
+<p>You'll see two lists we're going change the top one called <code>User Variables for $(YOUR_USER_NAME)</code></p>
+<p>find the variable called <code>path</code> and double click it.</p>
+<p>press the <code>new</code> button and type the installation location of DOSBox. (default is <code>C:\Program Files (x86)\DOSBox-0.74-3</code>)</p>
+<p>now open a new cmd and run <code>dosbox</code> if it starts DOSBox then you installed it successfully</p>
+<h3 id="linux-1"><a class="header" href="#linux-1">Linux</a></h3>
+<p>run this command and that's it!</p>
+<pre><code class="language-bash">sudo apt-get install dosbox
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

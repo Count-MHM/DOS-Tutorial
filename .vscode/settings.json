@@ -1,0 +1,14 @@
+// Count_MHM
+// 2023/07/08
+//
+//
+{
+	"markdownlint.config": {
+		"MD033": {
+			"allowed_elements": [
+				"img"
+			]
+		},
+		"MD024": false
+	}
+}
