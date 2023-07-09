@@ -1,0 +1,64 @@
+{
+    "env":  {
+        "defaultIncludes": [
+            "${WATCOM}/h",
+            "./"
+        ],
+        // page 93 of cguide.pdf
+        "defaultDefines": [
+            // enable one of these two
+            // "__386__",
+            "__I86__",
+
+            "__X86__",
+            "M_I86",
+            "_M_I86",
+            "_M_IX86=0",
+            "__DOS__",
+            "_DOS",
+            "MSDOS",
+            "__SMALL__=1",
+            "_M_I86SM=__SMALL__",
+            "M_I86SM=__SMALL__",
+            "__cplusplus=1",
+            "__WATCOMC__=1300",
+            "_INTEGRAL_MAX_BITS=32",
+            "_PUSHPOP_SUPPORTED=1",
+            "__near=",
+            "__watcall=",
+            "far=",
+            "interrupt=",
+            "_interrupt=",
+            "__interrupt=",
+            "_dos_getvect(x)=0",
+            "_chain_intr(x)=0",
+            "asm=__asm",
+            "__declspec(x)=",
+            "__cdecl=",
+            ""
+        ]
+    },
+    "configurations": [
+        {
+            "name": "test.exe",
+            "includePath": [
+                "${defaultIncludes}"
+            ],
+            "defines": [
+                "${defaultDefines}"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${default}",
+                "path": [
+                    "${defaultIncludes}"
+                ]
+            },
+            "intelliSenseMode": "${default}",
+            "cStandard": "c89",
+            "cppStandard": "c++98",
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}
