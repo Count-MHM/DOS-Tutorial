@@ -161,8 +161,148 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
-<p>In this chapter </p>
+                        <!-- Count_MHM
+---- 2023/07/08
+---- 2023/07/09
+---- 
+---->
+<h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
+<p>In this chapter, we are going to do what all other programming tutorials do: printing <code>Hello World!</code></p>
+<p>In this series, I'm going to assume that you know a bit of C/C++ and x86-16 assembly, and know how to use Makefiles.</p>
+<p>So first make a folder. And open the folder in VS Code.</p>
+<p>Open Explorer in VS Code (via icon on top left or <code>Ctrl+Alt+L</code>).</p>
+<p>Right click and make a file called <code>main.cpp</code>:</p>
+<pre><code class="language-cpp hidelines=!!!">// main.cpp:
+#include &lt;stdio.h&gt;
+int main()
+{
+    printf(&quot;Hello World!\n&quot;);
+    return 0;
+}
+</code></pre>
+<p>Make another file called <code>Makefile</code>:</p>
+<pre><code class="language-makefile"># Makefile
+run : test.exe
+    dosbox test.exe
+
+test.exe : main.obj
+    wlink system dos option dosseg file { main.obj } name $@
+
+main.obj : main.cpp
+    wpp -0 -bt=dos -d2 -ms -s -wx -zq -fo=&quot;$@&quot; &quot;$&lt;&quot;
+
+clean : .SYMBOLIC
+    -del test.exe main.obj main.err
+</code></pre>
+<p>From the top, select <code>Terminal/New Terminal</code> or press <code>Ctrl+Shift+`</code> to open a terminal.</p>
+<p>You can use <code>wmake run</code> to build and run the program and
+<code>wmake clean</code> to clean anything that <code>wmake run</code> made</p>
+<p>VS Code doesn't know that we are using Watcom, to fix that we have to create a folder called <code>.vscode</code> (only setting for VS Code should be placed inside <code>.vscode</code>) and a file called <code>c_cpp_properties.json</code> inside:</p>
+<pre><code class="language-json">// c_cpp_properties.json
+{
+    &quot;env&quot;:  {
+        &quot;defaultIncludes&quot;: [
+            &quot;${WATCOM}/h&quot;,
+            &quot;./&quot;
+        ],
+        // page 93 of cguide.pdf
+        &quot;defaultDefines&quot;: [
+            // enable one of these two
+            // &quot;__386__&quot;,
+            &quot;__I86__&quot;,
+
+            &quot;__X86__&quot;,
+            &quot;M_I86&quot;,
+            &quot;_M_I86&quot;,
+            &quot;_M_IX86=0&quot;,
+            &quot;__DOS__&quot;,
+            &quot;_DOS&quot;,
+            &quot;MSDOS&quot;,
+            &quot;__SMALL__=1&quot;,
+            &quot;_M_I86SM=__SMALL__&quot;,
+            &quot;M_I86SM=__SMALL__&quot;,
+            &quot;__cplusplus=1&quot;,
+            &quot;__WATCOMC__=1300&quot;,
+            &quot;_INTEGRAL_MAX_BITS=32&quot;,
+            &quot;_PUSHPOP_SUPPORTED=1&quot;,
+            &quot;__near=&quot;,
+            &quot;__watcall=&quot;,
+            &quot;far=&quot;,
+            &quot;interrupt=&quot;,
+            &quot;_interrupt=&quot;,
+            &quot;__interrupt=&quot;,
+            &quot;_dos_getvect(x)=0&quot;,
+            &quot;_chain_intr(x)=0&quot;,
+            &quot;asm=__asm&quot;,
+            &quot;__declspec(x)=&quot;,
+            &quot;__cdecl=&quot;,
+            &quot;&quot;
+        ]
+    },
+    &quot;configurations&quot;: [
+        {
+            &quot;name&quot;: &quot;test.exe&quot;,
+            &quot;includePath&quot;: [
+                &quot;${defaultIncludes}&quot;
+            ],
+            &quot;defines&quot;: [
+                &quot;${defaultDefines}&quot;
+            ],
+            &quot;browse&quot;: {
+                &quot;limitSymbolsToIncludedHeaders&quot;: true,
+                &quot;databaseFilename&quot;: &quot;${default}&quot;,
+                &quot;path&quot;: [
+                    &quot;${defaultIncludes}&quot;
+                ]
+            },
+            &quot;intelliSenseMode&quot;: &quot;${default}&quot;,
+            &quot;cStandard&quot;: &quot;c89&quot;,
+            &quot;cppStandard&quot;: &quot;c++98&quot;,
+            &quot;configurationProvider&quot;: &quot;ms-vscode.makefile-tools&quot;
+        }
+    ],
+    &quot;version&quot;: 4
+}
+</code></pre>
+<h2 id="explanation"><a class="header" href="#explanation">Explanation</a></h2>
+<pre><code class="language-Makefile">main.obj : main.cpp
+    wpp -0 -bt=dos -ms -s -wx -zq -fo=&quot;$@&quot; &quot;$&lt;&quot;
+</code></pre>
+<ul>
+<li><code>wpp</code> is the <code>Open Watcom C++ x86 16-bit Optimizing Compiler</code></li>
+<li><code>-0</code> : Only use 8086 instruction set</li>
+<li><code>-bt=dos</code> : Operating system is dos</li>
+<li><code>-ms</code> : Small memory model</li>
+<li><code>-s</code> : Remove stack overflow checks</li>
+<li><code>-wx</code> : Set warning level to maximum setting</li>
+<li><code>-zq</code> : Operate quietly (display only error messages)</li>
+<li><code>-fo=&quot;$@&quot;</code> : Output file is <code>$@</code> (<code>$@=main.obj</code> in this case)</li>
+<li><code>&quot;$&lt;&quot;</code> : Input file is <code>$&lt;</code> (<code>$&lt;=main.cpp</code> in this case)</li>
+</ul>
+<pre><code class="language-Makefile">test.exe : main.obj
+    wlink system dos option dosseg file { main.obj } name $@
+</code></pre>
+<ul>
+<li><code>wlink</code> is the <code>Open Watcom Linker</code></li>
+<li><code>system dos</code> : Target system is DOS</li>
+<li><code>option dosseg</code> : The <code>DOSSEG</code> option tells the Open Watcom Linker to order segments in a special way.</li>
+<li><code>file { main.obj }</code> : Input files</li>
+<li><code>name $@</code> : Output file name <code>$@</code> (<code>$@=test.exe</code> in this case)</li>
+</ul>
+<pre><code class="language-Makefile">clean : .SYMBOLIC
+    -del test.exe main.obj main.err
+</code></pre>
+<ul>
+<li>Deletes files <code>test.exe main.obj main.err</code></li>
+</ul>
+<pre><code class="language-Makefile">run : test.exe
+    dosbox test.exe
+</code></pre>
+<ul>
+<li>Runs <code>test.exe</code> with DOSBox</li>
+</ul>
+<hr />
+<p>you can find source code for this chapter at <a href="https://github.com/Count-MHM/DOS-Tutorial/tree/master/Code/Chapter-02">GitHub</a></p>
 
                     </main>
 
