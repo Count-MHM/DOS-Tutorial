@@ -186,10 +186,10 @@ run : test.exe
     dosbox test.exe
 
 test.exe : main.obj
-    wlink system dos option dosseg file { main.obj } name $@
+    wlink system dos option dosseg option quiet file { $&lt; } name $@
 
 main.obj : main.cpp
-    wpp -0 -bt=dos -d2 -ms -s -wx -zq -fo=&quot;$@&quot; &quot;$&lt;&quot;
+    wpp -0 -bt=dos -ms -s -wx -zq -fo=&quot;$@&quot; &quot;$&lt;&quot;
 
 clean : .SYMBOLIC
     -del test.exe main.obj main.err
@@ -280,13 +280,14 @@ clean : .SYMBOLIC
 <li><code>&quot;$&lt;&quot;</code> : Input file is <code>$&lt;</code> (<code>$&lt;=main.cpp</code> in this case)</li>
 </ul>
 <pre><code class="language-Makefile">test.exe : main.obj
-    wlink system dos option dosseg file { main.obj } name $@
+    wlink system dos option dosseg option quiet file { $&lt; } name $@
 </code></pre>
 <ul>
 <li><code>wlink</code> is the <code>Open Watcom Linker</code></li>
 <li><code>system dos</code> : Target system is DOS</li>
 <li><code>option dosseg</code> : The <code>DOSSEG</code> option tells the Open Watcom Linker to order segments in a special way.</li>
-<li><code>file { main.obj }</code> : Input files</li>
+<li><code>option quiet</code> : Don't print anything other than errors</li>
+<li><code>file { $&lt; }</code> : Input files (<code>$&lt;=main.obj</code> in this case)</li>
 <li><code>name $@</code> : Output file name <code>$@</code> (<code>$@=test.exe</code> in this case)</li>
 </ul>
 <pre><code class="language-Makefile">clean : .SYMBOLIC
