@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Basics - Dos Tutorial</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 01</li><li class="chapter-item expanded "><a href="../Chapter-01/Chapter-01.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../Chapter-02/Chapter-02.html"><strong aria-hidden="true">2.</strong> Hello World!</a></li><li class="chapter-item expanded "><a href="../misc/Work-In-Progress.html"><strong aria-hidden="true">3.</strong> PC Architecture (WIP)</a></li><li class="chapter-item expanded "><a href="../Chapter-04/Chapter-04-00.html"><strong aria-hidden="true">4.</strong> VGA</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../Chapter-04/Chapter-04-01.html" class="active"><strong aria-hidden="true">4.1.</strong> Basics</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../misc/contributors.html">Contributors</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Dos Tutorial</h1>
+
+                    <div class="right-buttons">
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Count_MHM
+---- 2023/07/17
+---- 2023/07/18
+---- 2023/07/19
+---- 
+---->
+<h1 id="basics"><a class="header" href="#basics">Basics</a></h1>
+<h2 id="video-modes"><a class="header" href="#video-modes">Video Modes</a></h2>
+<p>BIOS by default has few video mode that we can use:</p>
+<div class="table-wrapper"><table><thead><tr><th>AL<sup class="footnote-reference"><a href="#1">1</a></sup></th><th>Type</th><th>Format</th><th>Cell</th><th>Colors</th><th>Adapter<sup class="footnote-reference"><a href="#2">2</a></sup></th><th>Address</th></tr></thead><tbody>
+<tr><td>0x00</td><td>text</td><td>40x25</td><td>8x8<sup class="footnote-reference"><a href="#3">3</a></sup></td><td>16/8 (shades)</td><td>CGA</td><td>0xB8000</td></tr>
+<tr><td>0x01</td><td>text</td><td>40x25</td><td>8x8<sup class="footnote-reference"><a href="#3">3</a></sup></td><td>16/8</td><td>CGA</td><td>0xB8000</td></tr>
+<tr><td>0x02</td><td>text</td><td>80x25</td><td>8x8<sup class="footnote-reference"><a href="#3">3</a></sup></td><td>16/8 (shades)</td><td>CGA</td><td>0xB8000</td></tr>
+<tr><td>0x03</td><td>text</td><td>80x25</td><td>8x8<sup class="footnote-reference"><a href="#3">3</a></sup></td><td>16/8</td><td>CGA</td><td>0xB8000</td></tr>
+<tr><td>0x04</td><td>graphics</td><td>320x200</td><td>8x8</td><td>4</td><td>CGA</td><td>0xB8000</td></tr>
+<tr><td>0x05</td><td>graphics</td><td>320x200</td><td>8x8</td><td>4 (shades)</td><td>CGA</td><td>0xB8000</td></tr>
+<tr><td>0x06</td><td>graphics</td><td>640x200</td><td>8x8</td><td>2</td><td>CGA</td><td>0xB8000</td></tr>
+<tr><td>0x07</td><td>text</td><td>80x25</td><td>9x14<sup class="footnote-reference"><a href="#4">4</a></sup></td><td>2</td><td>MDA, EGA</td><td>0xB0000</td></tr>
+<tr><td>0x08</td><td>graphics</td><td>160x200</td><td>8x8</td><td>16</td><td>PCjr</td><td>IDK</td></tr>
+<tr><td>0x09</td><td>graphics</td><td>320x200</td><td>8x8</td><td>16</td><td>PCjr</td><td>IDK</td></tr>
+<tr><td>0x0A</td><td>graphics</td><td>650x200</td><td>8x8</td><td>4</td><td>PCjr</td><td>IDK</td></tr>
+<tr><td>0x0D<sup class="footnote-reference"><a href="#5">5</a></sup></td><td>graphics</td><td>320x200</td><td>8x8</td><td>16</td><td>EGA</td><td>0xA0000</td></tr>
+<tr><td>0x0E</td><td>graphics</td><td>640x200</td><td>8x8</td><td>16</td><td>EGA</td><td>0xA0000</td></tr>
+<tr><td>0x0F</td><td>graphics</td><td>640x350</td><td>8x14</td><td>2</td><td>EGA</td><td>0xA0000</td></tr>
+<tr><td>0x10</td><td>graphics</td><td>640x350</td><td>8x14</td><td>4</td><td>64K EGA</td><td>0xA0000</td></tr>
+<tr><td>0x10</td><td>graphics</td><td>640x350</td><td>8x14</td><td>16</td><td>128K EGA, VGA</td><td>0xA0000</td></tr>
+<tr><td>0x11</td><td>graphics</td><td>640x480</td><td>8x16</td><td>2</td><td>MCGA, VGA</td><td>0xA0000</td></tr>
+<tr><td>0x12</td><td>graphics</td><td>640x480</td><td>8x16</td><td>16</td><td>VGA</td><td>0xA0000</td></tr>
+<tr><td>0x13</td><td>graphics</td><td>320x200</td><td>8x16</td><td>256</td><td>VGA</td><td>0xA0000</td></tr>
+</tbody></table>
+</div>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>adding 0x80 to these values will stop BIOS from clearing the screen.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>EGA is fully compatible with CGA, and VGA is fully compatible with CGA and EGA.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>CGA=8x8, EGA=8x14, and VGA=9x16.</p>
+</div>
+<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
+<p>MDA and EGA=9x14, VGA=9x16, LCD=8x8.</p>
+</div>
+<div class="footnote-definition" id="5"><sup class="footnote-definition-label">5</sup>
+<p>0B, and 0C are reserved for EGA BIOS.</p>
+</div>
+<h2 id="video-bios-services"><a class="header" href="#video-bios-services">Video BIOS Services</a></h2>
+<p>BIOS also provides few Video related functions<sup class="footnote-reference"><a href="#6">6</a></sup>:</p>
+<div class="table-wrapper"><table><thead><tr><th>AH</th><th>Adapter<sup class="footnote-reference"><a href="#7">7</a></sup></th><th>Note</th></tr></thead><tbody>
+<tr><td>0x00</td><td>CGA</td><td>Set video mode</td></tr>
+<tr><td>0x01</td><td>CGA</td><td>Set cursor type</td></tr>
+<tr><td>0x02</td><td>CGA</td><td>Set cursor position</td></tr>
+<tr><td>0x03</td><td>CGA</td><td>Read cursor position</td></tr>
+<tr><td>0x04</td><td>CGA</td><td>Read light pen</td></tr>
+<tr><td>0x05</td><td>CGA</td><td>Select active display page</td></tr>
+<tr><td>0x06</td><td>CGA</td><td>Scroll active page up</td></tr>
+<tr><td>0x07</td><td>CGA</td><td>Scroll active page down</td></tr>
+<tr><td>0x08</td><td>CGA</td><td>Read character and attribute at cursor</td></tr>
+<tr><td>0x09</td><td>CGA</td><td>Write character and attribute at cursor</td></tr>
+<tr><td>0x0A</td><td>CGA</td><td>Write character at current cursor</td></tr>
+<tr><td>0x0B</td><td>CGA</td><td>Set color palette</td></tr>
+<tr><td>0x0C</td><td>CGA</td><td>Write graphics pixel at coordinate</td></tr>
+<tr><td>0x0D</td><td>CGA</td><td>Read graphics pixel at coordinate</td></tr>
+<tr><td>0x0E</td><td>CGA</td><td>Write text in teletype mode</td></tr>
+<tr><td>0x0F</td><td>CGA</td><td>Get current video state</td></tr>
+<tr><td>0x10</td><td>EGA</td><td>Set/get palette registers</td></tr>
+<tr><td>0x11</td><td>EGA</td><td>Character generator routine</td></tr>
+<tr><td>0x12<sup class="footnote-reference"><a href="#8">8</a></sup></td><td>EGA</td><td>Video subsystem configuration</td></tr>
+<tr><td>0x13</td><td>BIOS after 1986/10/01</td><td>Write string</td></tr>
+<tr><td>0x14</td><td>Convertible</td><td>Load LCD char font</td></tr>
+<tr><td>0x15</td><td>Convertible</td><td>Return physical display parameters</td></tr>
+<tr><td>0x1A<sup class="footnote-reference"><a href="#9">9</a></sup></td><td>VGA</td><td>Video Display Combination</td></tr>
+<tr><td>0x1B</td><td>MCGA, VGA</td><td>Video BIOS Functionality/State Information</td></tr>
+<tr><td>0x1C</td><td>VGA</td><td>Save/Restore Video State</td></tr>
+</tbody></table>
+</div>
+<div class="footnote-definition" id="6"><sup class="footnote-definition-label">6</sup>
+<p>Some BIOS implementations destroy BP.</p>
+</div>
+<div class="footnote-definition" id="7"><sup class="footnote-definition-label">7</sup>
+<p>EGA is fully compatible with CGA, and VGA is fully compatible with CGA and EGA.</p>
+</div>
+<div class="footnote-definition" id="8"><sup class="footnote-definition-label">8</sup>
+<p>can be used to detect an EGA compatible Graphics Adapter.</p>
+</div>
+<div class="footnote-definition" id="9"><sup class="footnote-definition-label">9</sup>
+<p>can be used to detect a VGA compatible Graphics Adapter.</p>
+</div>
+<h2 id="the-code"><a class="header" href="#the-code">The Code</a></h2>
+<p>Note: clicking on the
+<i class="fa fa-eye"></i>
+icon will show the entirety of the code</p>
+<pre><code class="language-cpp">#include &lt;stdint.h&gt;
+<span class="boring">#include &lt;stdio.h&gt;
+</span>#include &lt;i86.h&gt;
+
+<span class="boring">#define VGA_MODE 0x13
+</span><span class="boring">
+</span>void SetVideoMode(uint8_t mode)
+{
+    REGS regs;
+    // We want to call function 0x00
+    regs.h.ah = 0x00;
+    regs.h.al = mode;
+    // regs.w.ax = mode;
+
+    // Call the BIOS interrupt
+    int86(0x10, &amp;regs, &amp;regs);
+}
+
+uint8_t GetVideoMode()
+{
+    REGS regs;
+    // We want to call function 0x0F
+    regs.h.ah = 0x0F;
+
+    // Call the BIOS interrupt
+    int86(0x10, &amp;regs, &amp;regs);
+
+    // Current video mode is placed in the al register
+    return regs.h.al;
+}
+<span class="boring">
+</span><span class="boring">int main()
+</span><span class="boring">{
+</span><span class="boring">    uint8_t mode = GetVideoMode();
+</span><span class="boring">    printf(&quot;Current video mode is: 0x%X\n&quot;, mode);
+</span><span class="boring">    getchar();
+</span>
+<span class="boring">    SetVideoMode(VGA_MODE);
+</span><span class="boring">    printf(&quot;VGA!\n&quot;);
+</span><span class="boring">    getchar();
+</span>
+<span class="boring">    SetVideoMode(mode);
+</span><span class="boring">    printf(&quot;Returned back to the default video mode\n&quot;);
+</span><span class="boring">    getchar();
+</span><span class="boring">    return 0;
+</span><span class="boring">}
+</span></code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../Chapter-04/Chapter-04-00.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../misc/contributors.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../Chapter-04/Chapter-04-00.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../misc/contributors.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

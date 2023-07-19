@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Installation - Dos Tutorial</title>
+        <title>PC Architecture (WIP) - Dos Tutorial</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 01</li><li class="chapter-item expanded "><a href="../Chapter-01/Chapter-01.html" class="active"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../Chapter-02/Chapter-02.html"><strong aria-hidden="true">2.</strong> Hello World!</a></li><li class="chapter-item expanded "><a href="../misc/Work-In-Progress.html"><strong aria-hidden="true">3.</strong> PC Architecture (WIP)</a></li><li class="chapter-item expanded "><a href="../Chapter-04/Chapter-04-00.html"><strong aria-hidden="true">4.</strong> VGA</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../Chapter-04/Chapter-04-01.html"><strong aria-hidden="true">4.1.</strong> Basics</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../misc/contributors.html">Contributors</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Part 01</li><li class="chapter-item expanded "><a href="../Chapter-01/Chapter-01.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../Chapter-02/Chapter-02.html"><strong aria-hidden="true">2.</strong> Hello World!</a></li><li class="chapter-item expanded "><a href="../misc/Work-In-Progress.html" class="active"><strong aria-hidden="true">3.</strong> PC Architecture (WIP)</a></li><li class="chapter-item expanded "><a href="../Chapter-04/Chapter-04-00.html"><strong aria-hidden="true">4.</strong> VGA</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../Chapter-04/Chapter-04-01.html"><strong aria-hidden="true">4.1.</strong> Basics</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="../misc/contributors.html">Contributors</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -164,91 +164,20 @@
                 <div id="content" class="content">
                     <main>
                         <!-- Count_MHM
----- 2023/07/08
----- 2023/07/09
+---- 2023/07/17
 ---- 
 ---->
-<h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
-<p>We are going to use <code>Open Watcom V2.0</code> as our compiler, <code>Visual Studio Code</code> as our code editor, and <code>DosBox</code> as our DOS emulator.</p>
-<h2 id="visual-studio-code"><a class="header" href="#visual-studio-code">Visual Studio Code</a></h2>
-<p>Let's start by installing the easier one first.</p>
-<p>It's as simple as downloading it from <a href="https://code.visualstudio.com/">Visual Studio Code's Website</a> and installing it.</p>
-<p>You can also install it via <code>winget</code> by running this command:</p>
-<pre><code class="language-bash">winget install -e --id Microsoft.VisualStudioCode
-</code></pre>
-<p>We also need to install a few <code>Extensions</code> to make life easier for us.</p>
-<p>First, let's open the <code>Extensions</code> menu. There are few ways to do that:</p>
-<ol>
-<li>Look for this icon
-<img src="Chapter-01/assets/VSCode-Extensions-Icon.png" alt="VSCode-Extension-Icon" height="25"/>
-On the left side and click it!</li>
-<li>Open <code>Command Palette</code> (with <code>Ctrl+Shift+P</code> or <code>F1</code>) and type <code>View: Show Extensions</code></li>
-<li>Use the default keyboard shortcut : <code>Ctrl+Shift+X</code></li>
-</ol>
-<p>From there search and install these extensions:</p>
-<ol>
-<li><code>C/C++</code></li>
-<li><code>Makefile Tools</code></li>
-</ol>
-<h2 id="open-watcom-v20"><a class="header" href="#open-watcom-v20">Open Watcom V2.0</a></h2>
-<p>Open Watcom V2.0 is only available for Windows and Linux (dos, win16, and os2 are also supported).</p>
-<p>I'm only going to cover Windows and Linux, macOS users may have to use <code>Wine</code> but I can't test it because I don't have any machine running macOS.</p>
-<p>First we have to download Watcom so go to <a href="https://github.com/open-watcom/open-watcom-v2">GitHub</a> from there go to <code>Releases</code> then select the latest build (<a href="https://github.com/open-watcom/open-watcom-v2/releases/tag/2023-07-02-Build"><code>2023-07-02-Build</code></a> at the time of writing)</p>
-<h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
-<p>Download <code>open-watcom-2_0-c-win-x64.exe</code> and run it.</p>
-<p>Read the EULA and press <code>I Agree</code>.</p>
-<p>Select a folder to install Watcom (I use <code>C:\Dev\Programs\WATCOM</code> but you can use any folder)</p>
-<p>Select <code>Full installation</code> and hit next</p>
-<p>Press next</p>
-<p>If you have installed it before, you will be prompted about what to do about some DLLs</p>
-<p>Select <code>Install the new file and keep existing file</code> and select <code>Use the current choice for all subsequent DLLs</code></p>
-<p>Select <code>Modify local machine environment variables</code> and hit OK</p>
-<p>Select <code>Don't Modify associations</code> and press OK</p>
-<p>There is one more step that I'm going to explain later. (follow DOSBox installation)</p>
-<h3 id="linux"><a class="header" href="#linux">Linux</a></h3>
-<p>Download <code>open-watcom-2_0-c-linux-x64</code>.</p>
-<p>Extract it and copy it to <code>/usr/bin/watcom</code></p>
-<p>And add these lines to the top of <code>~/.profile</code> and <code>~/.bashrc</code></p>
-<pre><code class="language-bash">export WATCOM=/usr/bin/watcom
-export PATH=$WATCOM/binl64:$WATCOM/binl:$PATH
-</code></pre>
-<p>Restart the terminal and run <code>wpp</code> in terminal and if you see <code>Open Watcom C++ x86 16-bit Optimizing Compiler ...</code> then you have installed it successfully!</p>
-<h2 id="dosbox"><a class="header" href="#dosbox">DOSBox</a></h2>
-<h3 id="windows-1"><a class="header" href="#windows-1">Windows</a></h3>
-<p>Run this command in cmd</p>
-<pre><code class="language-bash">winget install dosbox
-</code></pre>
-<p>After installing it, open windows search and search for <code>Edit the system environment variables</code> and open it.</p>
-<p>On the button of the opened window, there will be a button called <code>Environment Variables...</code> press it!</p>
-<p>You'll see two lists we're going to change, the top one called <code>User Variables for $(YOUR_USER_NAME)</code></p>
-<p>Find the variable called <code>path</code> and double click it.</p>
-<p>Press the <code>new</code> button and type the installation location of DOSBox. (default is <code>C:\Program Files (x86)\DOSBox-0.74-3</code>)</p>
-<p>Now open a new cmd and run <code>dosbox</code> and if it starts DOSBox then you have installed it successfully!</p>
-<p>Press the <code>new</code> button again and type the installation location of Watcom and add <code>\binnt64</code>. (so it'll be <code>C:\Dev\Programs\WATCOM\binnt64</code> for me)</p>
-<p>Go back to the page that you found <code>path</code> in.</p>
-<p>And make these variables: (instead of <code>###WATCOM###</code> write your Watcom install location without a <code>\</code> at the end)</p>
-<ul>
-<li><code>WATCOM</code> = <code>###WATCOM###</code></li>
-<li><code>EDPATH</code> = <code>%WATCOM%\eddat</code></li>
-<li><code>INCLUDE</code> = <code>%WATCOM%\H;%WATCOM%\H\NT;%WATCOM%\H\NT\DIRECTX;%WATCOM%\H\NT\DDK;</code></li>
-<li><code>WHTMLHELP</code> = <code>%WATCOM%\BINNT\HELP</code></li>
-<li><code>WIPFC</code> = <code>%WATCOM%\WIPFC</code></li>
-</ul>
-<p>Then press okay until you close all the windows (don't close with <code>X</code>)</p>
-<p>Now open cmd and run <code>wpp</code> and if you see <code>Open Watcom C++ x86 16-bit Optimizing Compiler ...</code> then you have installed Watcom successfully!</p>
-<h3 id="linux-1"><a class="header" href="#linux-1">Linux</a></h3>
-<p>Run this command and that's it!</p>
-<pre><code class="language-bash">sudo apt-get install dosbox
-</code></pre>
-<hr />
-<p>Installation has only been tested on Windows. Linux test is pending...</p>
+<h1 id="work-in-progress"><a class="header" href="#work-in-progress">Work in Progress</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../Chapter-02/Chapter-02.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
-                            <a rel="next" href="../Chapter-02/Chapter-02.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../Chapter-04/Chapter-04-00.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -258,8 +187,11 @@ export PATH=$WATCOM/binl64:$WATCOM/binl:$PATH
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../Chapter-02/Chapter-02.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
-                    <a rel="next" href="../Chapter-02/Chapter-02.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../Chapter-04/Chapter-04-00.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
